@@ -28,12 +28,38 @@ for (let i=0; i<data.length; ++i) {
 
     const cart = [ ]
 
+    //add item
     function addItem(name, price) {
+        for (let i = 0; i < cart.length; i++){
+            if (cart[i].name === name) {
+                cart[i].qty++;
+                return
+            }
+        }
+
         const item = {name: name, price: price, qty: 1}
         cart.push(item)
     }
+    // show items
     function showItems() {
+        const qty = getQty()
 
+    }
+    //get quantity
+    function getQty() {
+        let qty = 0;
+        for (let i = 0; i < cart.length; i++) {
+            qty += cart[i].qty
+        }
+        return qty;
+    }
+    //get total
+    function getTotal() {
+        let total = 0;
+        for (let i = 0; i < cart.length; i++) {
+            total += cart[i].price * cart[i].qty
+        }
+        return total.toFixed(2)
     }
     showItems()
 }
