@@ -1,6 +1,12 @@
 import data from './data.js'
 
 const itemsContainer = document.getElementById('items')
+const itemList = document.getElementById('item-list')
+const cartQty = document.getElementById("cart-qty");
+const cartTotal = document.getElementById("cart-total");
+// itemList.innerHTML = '<li> Hello World</li>'
+
+
 
 for (let i=0; i<data.length; ++i) {
     let newDiv = document.createElement('div');
@@ -43,8 +49,22 @@ for (let i=0; i<data.length; ++i) {
     // show items
     function showItems() {
         const qty = getQty()
-
+        cartQty.innerHTML = `You have ${qty} items in your cart`;
+        let itemStr = '';
+        for (let i = 0; i < cart.length; i++) {
+            const {name, price, qty} = cart[i];
+            itemStr += `<li>
+            ${cart[i].name} 
+            $${price} x ${qty} =
+             $${qty * price}</li>`;
+        }
+        itemList.innerHTML = itemStr;
+    
+        const total = getTotal();
+        cartTotal.innerHTML = `Total in cart: $${total}`;
     }
+
+    
     //get quantity
     function getQty() {
         let qty = 0;
@@ -59,6 +79,7 @@ for (let i=0; i<data.length; ++i) {
         for (let i = 0; i < cart.length; i++) {
             total += cart[i].price * cart[i].qty
         }
+        
         return total.toFixed(2)
     }
 
@@ -68,7 +89,7 @@ for (let i=0; i<data.length; ++i) {
         if (cart[i].name === name)
             if (qty > 0) {
                 cart[i].qty -= qty
-            }
+        }
         if (cart[i].qty < 1 || qty === 0) {
             cart.splice(i, 1)
         }
